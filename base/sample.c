@@ -1,5 +1,5 @@
 #include<iostream.h>
 int main()
-{ cout<<"nnxnbncjjb";
+{ cout<<"djjb";
   return 0 ;
 }
