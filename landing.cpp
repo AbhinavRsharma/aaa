@@ -6,35 +6,29 @@ int main(int argc, char** argv)
 
   /*****************************************************************************
    ros node stuff : like nodehandle 
-   publisher for cb_image topic
+   publisher for cb_point topic
   *****************************************************************************/
   ros::init(argc, argv, "cb_publisher");
   ros::NodeHandle nh;
   ros::Publisher cb_pub = nh.advertise<geometry_msgs::Point>("cb_img", 1000);
-  
+  float t=0;
   while (nh.ok()) 
   {
-    float x , y ,z ,freq;
-    //creating parameters
-    nh.getParam("/cb_publisher/x", x);
-    nh.getParam("/cb_publisher/y",y);
-    nh.getParam("/cb_publisher/z",z);
-    nh.getParam("/cb_publisher/freq",freq);
-
-    ros::Rate loop_rate(freq);
+    ros::Rate loop_rate(10);
     
     geometry_msgs::Point p;
-    p.x =x;
-    p.y = y;
-    p.z = z;
+    p.x = 2*t;
+    p.y = t*t;
+    p.z = 0;
  
 
     /*****************************************************************************
-     giving data to image after applying modifier 
+     giving data to point after applying modifier 
     *****************************************************************************/
 
     
     cb_pub.publish(p);
+    t += 0.05;
     ros::spinOnce();
     loop_rate.sleep();
   }
